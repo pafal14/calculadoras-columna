@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadoras de Cirugía de Columna</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Calculadoras de Cirugía de Columna</h1>
+        <p>Herramientas para la evaluación clínica.</p>
+    </header>
+
+    <main>
+        <div class="nav-buttons">
+            <a href="index.html" class="nav-button home">Inicio</a>
+            <button class="nav-button" data-target="sins-calculator">SINS</button>
+            <button class="nav-button" data-target="frankel-scale">Frankel</button>
+            <button class="nav-button" data-target="joa-scale">mJOA</button>
+            <button class="nav-button" data-target="bilsky-scale">Bilsky</button>
+            <button class="nav-button" data-target="pola-classification">Pola</button>
+        </div>
+
+        <button class="nav-button reset" onclick="reiniciarCalculadoras()">Reiniciar</button>
+
+        <div id="calculadoras-container">
+            <section id="sins-calculator" class="hidden">
+                <h2>Calculadora SINS</h2>
+                <div class="input-group">
+                    <label for="localizacion">Localización:</label>
+                    <select id="localizacion" onchange="calcularSINS()">
+                        <option value="0">Sacro</option>
+                        <option value="1">Límite craneal (C1-C2) / C3-C7</option>
+                        <option value="2">Unión toracolumbar (T10-L2) / T1-T9 / L3-L5</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="tipo-lesion">Tipo de lesión:</label>
+                    <select id="tipo-lesion" onchange="calcularSINS()">
+                        <option value="0">Blástica</option>
+                        <option value="1">Mixta</option>
+                        <option value="2">Lítica</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="colapso-vertebral">Colapso vertebral:</label>
+                    <select id="colapso-vertebral" onchange="calcularSINS()">
+                        <option value="0">Sin colapso</option>
+                        <option value="1">Colapso <50% de compresión</option>
+                        <option value="2">Colapso >50% de compresión</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="alineacion-vertebral">Alineación vertebral:</label>
+                    <select id="alineacion-vertebral" onchange="calcularSINS()">
+                        <option value="0">Normal</option>
+                        <option value="2">Cifosis <10°</option>
+                        <option value="4">Cifosis >10° o Subluxación/Luxación</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="dolor">Dolor (mecánico):</label>
+                    <select id="dolor" onchange="calcularSINS()">
+                        <option value="0">Indoloro</option>
+                        <option value="1">No mecánico</option>
+                        <option value="3">Mecánico</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="elemento-posterior">Compromiso del elemento posterior:</label>
+                    <select id="elemento-posterior" onchange="calcularSINS()">
+                        <option value="0">Intacto</option>
+                        <option value="1">Posiblemente comprometido</option>
+                        <option value="3">Comprometido</option>
+                    </select>
+                </div>
+                <div class="result-box">
+                    <h3>Resultado SINS:</h3>
+                    <p id="resultadoSINS">Puntuación total: 0 - (Estable)</p>
+                </div>
+            </section>
+
+            <section id="frankel-scale" class="hidden">
+                <h2>Escala de Frankel</h2>
+                <div class="input-group">
+                    <label for="grado-frankel">Seleccione el grado:</label>
+                    <select id="grado-frankel" onchange="mostrarFrankel()">
+                        <option value="A">A: Ausencia completa de función motora y sensitiva.</option>
+                        <option value="B">B: Función sensitiva presente, pero sin función motora útil.</option>
+                        <option value="C">C: Función motora útil, pero no funcional.</option>
+                        <option value="D">D: Función motora útil y funcional.</option>
+                        <option value="E">E: Función motora y sensitiva normales.</option>
+                    </select>
+                </div>
+                <div class="result-box">
+                    <h3>Interpretación Frankel:</h3>
+                    <p id="resultadoFrankel">Seleccione un grado para ver la interpretación.</p>
+                </div>
+            </section>
+
+            <section id="joa-scale" class="hidden">
+                <h2>Escala JOA modificada (mJOA)</h2>
+                <div class="input-group">
+                    <label for="joa-motora-brazos">Función motora (brazos):</label>
+                    <select id="joa-motora-brazos" onchange="calcularJOA()">
+                        <option value="4">4: Capaz de comer con tenedor y cuchillo, abrochar botones y usar palillos.</option>
+                        <option value="3">3: Capaz de comer, pero no de abrochar botones.</option>
+                        <option value="2">2: Capaz de comer solo con cuchara, sin abrochar botones.</option>
+                        <option value="1">1: Incapaz de usar la mano para comer.</option>
+                        <option value="0">0: Ninguna función.</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="joa-motora-piernas">Función motora (piernas):</label>
+                    <select id="joa-motora-piernas" onchange="calcularJOA()">
+                        <option value="4">4: Camina sin dificultad.</option>
+                        <option value="3">3: Camina con dificultad, pero sin ayuda.</option>
+                        <option value="2">2: Necesita ayuda (bastón, muletas, etc.).</option>
+                        <option value="1">1: Camina con ayuda de un andador o apoyo de una persona.</option>
+                        <option value="0">0: Confinado a la cama.</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="joa-sensitiva">Función sensitiva (brazos):</label>
+                    <select id="joa-sensitiva" onchange="calcularJOA()">
+                        <option value="2">2: Normal.</option>
+                        <option value="1">1: Déficit sensitivo leve.</option>
+                        <option value="0">0: Anestesia.</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="joa-esfinter">Función de esfínter:</label>
+                    <select id="joa-esfinter" onchange="calcularJOA()">
+                        <option value="2">2: Normal.</option>
+                        <option value="1">1: Dificultad para orinar.</option>
+                        <option value="0">0: Incontinencia urinaria y/o fecal.</option>
+                    </select>
+                </div>
+                <div class="result-box">
+                    <h3>Resultado mJOA:</h3>
+                    <p id="resultadoJOA">Puntuación total: 0 - (Sin mielopatía)</p>
+                </div>
+            </section>
+
+            <section id="bilsky-scale" class="hidden">
+                <h2>Escala de Compresión de la Médula (ESCC)</h2>
+                <p>Seleccione la imagen que mejor represente la compresión de la médula espinal.</p>
+                <div class="image-selector-container">
+                    <div class="image-option" data-grade="0" onclick="mostrarBilsky('0')">
+                        <img src="images/bilsky-grade0.png" alt="Grado 0: Enfermedad ósea.">
+                        <p>Grado 0</p>
+                    </div>
+                    <div class="image-option" data-grade="1a" onclick="mostrarBilsky('1a')">
+                        <img src="images/bilsky-grade1a.png" alt="Grado 1a: Impingement epidural, sin deformación del saco tecal.">
+                        <p>Grado 1a</p>
+                    </div>
+                    <div class="image-option" data-grade="1b" onclick="mostrarBilsky('1b')">
+                        <img src="images/bilsky-grade1b.png" alt="Grado 1b: Deformación del saco tecal, sin compresión medular.">
+                        <p>Grado 1b</p>
+                    </div>
+                    <div class="image-option" data-grade="1c" onclick="mostrarBilsky('1c')">
+                        <img src="images/bilsky-grade1c.png" alt="Grado 1c: Deformación del saco tecal, con compresión medular.">
+                        <p>Grado 1c</p>
+                    </div>
+                    <div class="image-option" data-grade="2" onclick="mostrarBilsky('2')">
+                        <img src="images/bilsky-grade2.png" alt="Grado 2: Compresión medular, con LCR visible alrededor de la médula.">
+                        <p>Grado 2</p>
+                    </div>
+                    <div class="image-option" data-grade="3" onclick="mostrarBilsky('3')">
+                        <img src="images/bilsky-grade3.png" alt="Grado 3: Compresión medular, sin LCR visible alrededor de la médula.">
+                        <p>Grado 3</p>
+                    </div>
+                </div>
+                <div class="result-box">
+                    <h3>Resultado Bilsky:</h3>
+                    <p id="resultadoBilsky">Seleccione un grado para ver la interpretación.</p>
+                </div>
+            </section>
+
+            <section id="pola-classification" class="hidden">
+                <h2>Clasificación de Pola para Spondylodiscitis</h2>
+                <div class="input-group">
+                    <label for="pola-neuro">Déficit Neurológico Agudo:</label>
+                    <select id="pola-neuro" onchange="calcularPola()">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="pola-abscess">Abscesos Epidurales:</label>
+                    <select id="pola-abscess" onchange="calcularPola()">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="pola-instability">Destrucción Ósea o Inestabilidad Segmentaria:</label>
+                    <select id="pola-instability" onchange="calcularPola()">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="pola-parainvolvement">Involucro de tejidos paravertebrales:</label>
+                    <select id="pola-parainvolvement" onchange="calcularPola()">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="result-box">
+                    <h3>Resultado Pola:</h3>
+                    <p id="resultadoPola">Clasificación: - <br> Tratamiento Recomendado: -</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    <script src="script.js"></script>
+
+</body>
+</html>
