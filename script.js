@@ -92,9 +92,7 @@ function calcularPola() {
     let clasificacion = "No clasificado";
     let tratamiento = "Seleccione las opciones para obtener una clasificación y tratamiento.";
 
-    // Evaluación en orden de jerarquía: C > B > A
     if (neuro || abscess) {
-        // Tipo C: Presencia de abscesos epidurales o déficit neurológico
         if (abscess && neuro && instability) {
             clasificacion = "Tipo C.4";
             tratamiento = "Desbridamiento abierto, descompresión y estabilización.";
@@ -112,16 +110,14 @@ function calcularPola() {
             tratamiento = "Descompresión quirúrgica.";
         }
     } else if (instability) {
-        // Tipo B: Sin déficits neurológicos o abscesos, pero con inestabilidad
         if (parainvolvement) {
-            clasificacion = "Tipo B.2 o B.3"; // El paper no diferencia claramente entre B2 y B3 para el tratamiento
+            clasificacion = "Tipo B.2 o B.3";
             tratamiento = "Inmovilización con ortesis rígida o estabilización percutánea.";
         } else {
             clasificacion = "Tipo B.1";
             tratamiento = "Inmovilización con ortesis rígida o estabilización percutánea.";
         }
     } else {
-        // Tipo A: Sin déficits, abscesos o inestabilidad
         if (parainvolvement) {
             clasificacion = "Tipo A.3 o A.4";
             tratamiento = "Inmovilización con ortesis rígida o estabilización percutánea.";
@@ -131,7 +127,6 @@ function calcularPola() {
         }
     }
     
-    // Si no se ha seleccionado nada, no muestra el resultado
     if (document.getElementById('pola-neuro').value === 'no' && 
         document.getElementById('pola-abscess').value === 'no' && 
         document.getElementById('pola-instability').value === 'no' &&
@@ -140,6 +135,21 @@ function calcularPola() {
     } else {
         resultadoElemento.innerHTML = `Clasificación: **${clasificacion}**<br>Tratamiento Recomendado: **${tratamiento}**`;
     }
+}
+
+// Nueva función para la escala de Nurick
+function mostrarNurick() {
+    const grado = document.getElementById('nurick-grado').value;
+    const resultadoElemento = document.getElementById('resultadoNurick');
+    const interpretaciones = {
+        '0': 'Signos o síntomas de afectación radicular, sin evidencia de mielopatía.',
+        '1': 'Signos de mielopatía sin dificultad al andar.',
+        '2': 'Leve dificultad al andar que no impide actividades diarias.',
+        '3': 'Dificultad al andar que limita actividades diarias.',
+        '4': 'Camina con ayuda.',
+        '5': 'Postrado o en silla de ruedas.'
+    };
+    resultadoElemento.innerText = interpretaciones[grado];
 }
 
 function reiniciarCalculadoras() {
@@ -167,8 +177,11 @@ function reiniciarCalculadoras() {
     document.getElementById('pola-instability').selectedIndex = 0;
     document.getElementById('pola-parainvolvement').selectedIndex = 0;
     calcularPola();
+    document.getElementById('nurick-grado').selectedIndex = 0;
+    mostrarNurick();
 }
 
+// Esta función ahora se asegura de que solo una calculadora sea visible a la vez
 function mostrarCalculadora(id) {
     const todasLasCalculadoras = document.querySelectorAll('main section');
     todasLasCalculadoras.forEach(calculadora => {
@@ -180,6 +193,7 @@ function mostrarCalculadora(id) {
     }
 }
 
+// Esta función es vital para leer el parámetro de la URL
 function getURLParameter(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     const regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
@@ -187,14 +201,20 @@ function getURLParameter(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+// El código que se ejecuta cuando la página carga
 document.addEventListener('DOMContentLoaded', () => {
+    // Lee el parámetro 'show' de la URL. Si no existe, usa 'sins-calculator' por defecto.
     const calculadoraAMostrar = getURLParameter('show') || 'sins-calculator';
     mostrarCalculadora(calculadoraAMostrar);
+    
+    // Inicializa todas las calculadoras para que muestren el valor predeterminado
     calcularSINS();
     mostrarFrankel();
     calcularJOA();
     calcularPola();
+    mostrarNurick();
 
+    // Configura los botones de navegación para que funcionen dentro de la misma página
     const navButtons = document.querySelectorAll('.nav-buttons button');
     navButtons.forEach(button => {
         button.addEventListener('click', () => {

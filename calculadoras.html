@@ -21,6 +21,7 @@
             <button class="nav-button" data-target="joa-scale">mJOA</button>
             <button class="nav-button" data-target="bilsky-scale">Bilsky</button>
             <button class="nav-button" data-target="pola-classification">Pola</button>
+            <button class="nav-button" data-target="nurick-scale">Nurick</button>
         </div>
 
         <button class="nav-button reset" onclick="reiniciarCalculadoras()">Reiniciar</button>
@@ -212,6 +213,25 @@
                 <div class="result-box">
                     <h3>Resultado Pola:</h3>
                     <p id="resultadoPola">Clasificación: - <br> Tratamiento Recomendado: -</p>
+                </div>
+            </section>
+
+            <section id="nurick-scale" class="hidden">
+                <h2>Escala de Nurick</h2>
+                <div class="input-group">
+                    <label for="nurick-grado">Seleccione el grado:</label>
+                    <select id="nurick-grado" onchange="mostrarNurick()">
+                        <option value="0">0: Signos o síntomas de afectación radicular, sin evidencia de mielopatía.</option>
+                        <option value="1">1: Signos de mielopatía sin dificultad al andar.</option>
+                        <option value="2">2: Leve dificultad al andar que no impide actividades diarias.</option>
+                        <option value="3">3: Dificultad al andar que limita actividades diarias.</option>
+                        <option value="4">4: Camina con ayuda.</option>
+                        <option value="5">5: Postrado o en silla de ruedas.</option>
+                    </select>
+                </div>
+                <div class="result-box">
+                    <h3>Interpretación Nurick:</h3>
+                    <p id="resultadoNurick">Seleccione un grado para ver la interpretación.</p>
                 </div>
             </section>
         </div>

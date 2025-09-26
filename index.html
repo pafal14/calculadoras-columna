@@ -6,35 +6,38 @@
     <title>Calculadoras de Cirugía de Columna</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="home-page">
+<body>
 
     <header>
         <h1>Calculadoras de Cirugía de Columna</h1>
-        <p>Seleccione la escala que desea utilizar.</p>
+        <p>Herramientas para la evaluación clínica.</p>
     </header>
 
     <main>
-        <section id="menu-principal">
-            <a href="calculadoras.html?show=sins" class="menu-item">
-                <h3>Calculadora SINS</h3>
-            </a>
-            <a href="calculadoras.html?show=frankel" class="menu-item">
-                <h3>Escala de Frankel</h3>
-            </a>
-            <a href="calculadoras.html?show=joa" class="menu-item">
-                <h3>Escala mJOA</h3>
-            </a>
-            <a href="calculadoras.html?show=bilsky" class="menu-item">
-                <h3>Escala de Bilsky</h3>
-            </a>
-            <a href="calculadoras.html?show=pola" class="menu-item">
-                <h3>Clasificación de Pola</h3>
-            </a>
-        </section>
+        <div class="nav-buttons-container">
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=sins-calculator'">
+                <p>SINS</p>
+            </div>
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=frankel-scale'">
+                <p>Frankel</p>
+            </div>
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=joa-scale'">
+                <p>mJOA</p>
+            </div>
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=bilsky-scale'">
+                <p>Bilsky</p>
+            </div>
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=pola-classification'">
+                <p>Pola</p>
+            </div>
+            <div class="home-button" onclick="window.location.href='calculadoras.html?show=nurick-scale'">
+                <p>Nurick</p>
+            </div>
+        </div>
     </main>
 
-    <footer class="home-footer">
-        <p>Creado para la práctica clínica.</p>
+    <footer>
+        <p>&copy; 2024 Calculadoras de Cirugía de Columna</p>
     </footer>
 
 </body>
